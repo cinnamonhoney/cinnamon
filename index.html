@@ -9,7 +9,9 @@
 <meta name="apple-mobile-web-app-title" content="cinnamon">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
@@ -60,7 +62,7 @@
     padding-left: max(16px, env(safe-area-inset-left, 0px));
     padding-right: max(16px, env(safe-area-inset-right, 0px));
     padding-top: calc(20px + env(safe-area-inset-top, 0px));
-    padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px));
     margin: 0;
     min-height: 100vh;
   }
@@ -150,6 +152,71 @@
   .cheer { text-align: center; font-family: var(--font-title); font-weight: 500; color: var(--pink-strong); margin: 0; min-height: 1.4em; }
   footer { text-align: center; color: var(--ink-soft); font-size: .8rem; font-weight: 600; padding-top: 4px; }
 
+  /* ===== Dieta ===== */
+  :root { --on-pink: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --on-pink: #3a1a28; } }
+  :root[data-theme="dark"] { --on-pink: #3a1a28; }
+
+  .menu { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+  .meal { display: grid; grid-template-columns: 88px 1fr; gap: 12px; align-items: center; padding: 10px 12px; border-radius: var(--r-md); background: var(--pink-wash); }
+  .meal dt { font-size: .75rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--pink-strong); }
+  .meal dd { margin: 0; font-weight: 700; min-width: 0; }
+  .soft-btn {
+    align-self: flex-start; border: 2px solid var(--line); background: transparent; color: var(--pink-strong);
+    font: 800 .95rem var(--font-text); border-radius: 999px; padding: 8px 16px; cursor: pointer;
+  }
+  .soft-btn:focus-visible, .heart:focus-visible, .tab:focus-visible { outline: 3px solid var(--pink-strong); outline-offset: 2px; }
+  .week { display: flex; flex-direction: column; gap: 8px; }
+  .wk-day { border: 2px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; }
+  .wk-day.today { border-color: var(--pink); background: var(--pink-wash); }
+  .wk-day h3 { font-family: var(--font-title); font-weight: 600; font-size: 1.02rem; margin: 0 0 6px; display: flex; align-items: center; gap: 8px; text-transform: capitalize; }
+  .wk-day h3 .tag { font-family: var(--font-text); font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; background: var(--pink); color: var(--on-pink); border-radius: 999px; padding: 1px 8px; }
+  .wk-day dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; font-size: .92rem; }
+  .wk-day dt { color: var(--ink-soft); font-weight: 700; }
+  .wk-day dd { margin: 0; font-weight: 600; min-width: 0; }
+
+  .sweets-week { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--r-md); background: var(--pink-wash); }
+  .hearts { display: flex; gap: 6px; flex: none; }
+  .heart { width: 44px; height: 44px; border: 0; background: transparent; padding: 0; cursor: pointer; display: grid; place-items: center; border-radius: 50%; }
+  .heart svg { width: 32px; height: 32px; fill: var(--card); stroke: var(--pink-strong); stroke-width: 2; transition: transform .2s, fill .2s; }
+  .heart.on svg { fill: var(--pink); stroke: var(--pink); }
+  .heart:active svg { transform: scale(.85); }
+  .sweets-note { font-weight: 700; font-size: .92rem; min-width: 0; }
+  .recipes, .rules { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .recipes li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: var(--r-md); border: 2px solid var(--line); }
+  .recipes .ic { font-size: 1.2rem; line-height: 1.3; flex: none; }
+  .recipes b { display: block; }
+  .recipes span.d { color: var(--ink-soft); font-weight: 600; font-size: .92rem; }
+  .rules li { display: flex; gap: 10px; align-items: baseline; font-weight: 700; padding: 2px 4px; }
+  .rules li::before { content: "✿"; color: var(--pink); flex: none; }
+  .rules li.star { background: var(--pink); color: var(--on-pink); border-radius: var(--r-md); padding: 10px 12px; margin-top: 4px; }
+  .rules li.star::before { content: "♡"; color: var(--on-pink); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border-radius: 999px; padding: 4px 12px; background: var(--pink-wash); color: var(--ink-soft); font-weight: 700; text-decoration: line-through; text-decoration-color: var(--pink); }
+  .hint { color: var(--ink-soft); font-weight: 600; font-size: .9rem; margin: -4px 0 0; }
+
+  .shop-group { display: flex; flex-direction: column; gap: 8px; }
+  .shop-group h3 { margin: 0; font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--pink-strong); }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { position: relative; display: inline-flex; align-items: center; gap: 6px; border: 2px solid var(--line); border-radius: 999px; padding: 7px 13px; font-weight: 700; cursor: pointer; user-select: none; transition: background .2s, border-color .2s; }
+  .pill input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .pill .mark { display: none; color: var(--pink-strong); font-weight: 800; }
+  .pill.on { background: var(--pink-wash); border-color: var(--pink); color: var(--ink-soft); }
+  .pill.on .name { text-decoration: line-through; text-decoration-color: var(--pink); }
+  .pill.on .mark { display: inline; }
+  .pill:focus-within { outline: 3px solid var(--pink-strong); outline-offset: 2px; }
+
+  /* Barra de abajo */
+  .tabbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; justify-content: center; pointer-events: none;
+    padding: 18px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+    background: linear-gradient(to bottom, transparent, var(--bg) 45%);
+  }
+  .tabbar-inner { pointer-events: auto; display: flex; gap: 6px; width: 100%; max-width: 320px; background: var(--card); border-radius: 999px; padding: 6px; box-shadow: 0 8px 24px rgba(226, 103, 143, .22); }
+  .tab { flex: 1; border: 0; background: transparent; border-radius: 999px; padding: 11px 14px; font: 600 1.05rem var(--font-title); color: var(--ink-soft); display: flex; gap: 6px; align-items: center; justify-content: center; cursor: pointer; transition: background .2s, color .2s; }
+  .tab[aria-selected="true"] { background: var(--pink); color: var(--on-pink); }
+
   .pop { animation: pop .35s ease; }
   @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
@@ -157,7 +224,7 @@
 </head>
 <body>
 
-<div class="app">
+<main class="app view" id="view-hoy">
   <header>
     <span class="brand">cinnamon ૮ ˶ᵔ ᵕ ᵔ˶ ა</span>
     <h1>Hoy</h1>
@@ -204,7 +271,80 @@
 
   <p class="cheer" id="cheer"></p>
   <footer>Todo se guarda solo en este navegador ♡</footer>
-</div>
+</main>
+
+<main class="app view" id="view-dieta" hidden>
+  <header>
+    <span class="brand">cinnamon ૮ ˶ᵔ ᵕ ᵔ˶ ა</span>
+    <h1>Dieta</h1>
+    <span class="date" id="date-diet"></span>
+  </header>
+
+  <section class="card" aria-labelledby="h-diet-checks">
+    <div class="card-head">
+      <h2 id="h-diet-checks">Mis checks de hoy</h2>
+      <span class="count" id="diet-count">0/6</span>
+    </div>
+    <ul class="checks" id="diet-checks"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="h-menu">
+    <div class="card-head">
+      <h2 id="h-menu">Menú de hoy</h2>
+      <span class="count" id="menu-day"></span>
+    </div>
+    <dl class="menu" id="menu-today"></dl>
+    <button type="button" class="soft-btn" id="week-toggle" aria-expanded="false" aria-controls="menu-week">Ver la semana</button>
+    <div class="week" id="menu-week" hidden></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-sweets">
+    <h2 id="h-sweets">Mis dulces ricos</h2>
+    <div class="sweets-week">
+      <div class="hearts" id="hearts"></div>
+      <span class="sweets-note" id="sweets-note"></span>
+    </div>
+    <ul class="recipes" id="recipes"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="h-rules">
+    <h2 id="h-rules">Mis 6 reglas</h2>
+    <ul class="rules" id="rules"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="h-nope">
+    <h2 id="h-nope">No me gusta</h2>
+    <p class="hint">Nunca aparecen en mi menú.</p>
+    <div class="chips" id="nope"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-shop">
+    <div class="card-head">
+      <h2 id="h-shop">Lista de compras</h2>
+      <span class="count" id="shop-count"></span>
+    </div>
+    <p class="hint">Se desmarca sola cada lunes.</p>
+    <div id="shop"></div>
+    <button type="button" class="soft-btn" id="shop-reset">Desmarcar todo</button>
+  </section>
+
+  <section class="card" aria-labelledby="h-ate">
+    <h2 id="h-ate">Qué comí hoy</h2>
+    <div class="feel">
+      <input type="text" id="ate" maxlength="160" placeholder="Hoy comí…" autocomplete="off" aria-labelledby="h-ate">
+      <span class="saved" id="saved-ate">Guardado ✓</span>
+    </div>
+  </section>
+
+  <footer>Todo se guarda solo en este navegador ♡</footer>
+</main>
+
+<nav class="tabbar" aria-label="Pestañas">
+  <div class="tabbar-inner" role="tablist">
+    <button type="button" class="tab" id="tab-hoy" role="tab" aria-selected="true" aria-controls="view-hoy" data-tab="hoy"><span aria-hidden="true">🌸</span> Hoy</button>
+    <button type="button" class="tab" id="tab-dieta" role="tab" aria-selected="false" aria-controls="view-dieta" data-tab="dieta"><span aria-hidden="true">🥗</span> Dieta</button>
+  </div>
+</nav>
 
 <script>
 (() => {
@@ -420,12 +560,199 @@
     }
   }
 
+  // ================= DIETA =================
+  const DIET_CHECKS = [
+    { id: "desayune", name: "Desayuné", icon: "🍳" },
+    { id: "almuerzo", name: "Almuerzo con proteína y verdura", icon: "🥗" },
+    { id: "cena", name: "Cena ligera antes de las 9", icon: "🌙" },
+    { id: "agua", name: "Agua", icon: "💧" },
+    { id: "snack", name: "Snack real", icon: "🍎" },
+    { id: "sindulce", name: "Sin gaseosa ni dulce extra", icon: "🌿" },
+  ];
+  const MEALS = ["Desayuno", "Almuerzo", "Cena", "Snack"];
+  const MENU = {
+    1: ["Huevos revueltos + pan de panadería con palta", "Pollo al horno, arroz, ensalada", "Sopa de pollo + fruta", "Mandarina o manzana"],
+    2: ["Avena con plátano", "Seco de pollo con garbanzos", "Ensalada con huevo y palta", "Yogur"],
+    3: ["Yogur con fruta y avena", "Pollo o res a la plancha + ensalada", "Saltado de pollo con verduras", "Cancha"],
+    4: ["Tostadas integrales con huevo y palta", "Ají de gallina, arroz, ensalada", "Menestrón", "Fruta"],
+    5: ["Quinua con leche y fruta", "Pollo a la plancha o estofado", "Ensalada con pollo y choclo", "Maní o almendras"],
+    6: ["Huevos sancochados + fruta", "Lomo saltado", "Libre pero ligera", "Fruta"],
+    0: ["Avena con manzana", "Arroz con pollo + ensalada", "Sopa de verduras con pollo", "Yogur"],
+  };
+  const WEEK_ORDER = [1, 2, 3, 4, 5, 6, 0];
+  const SWEETS = [
+    { icon: "🍓", t: "Vasito tipo cheesecake", d: "Yogur griego, galleta molida y fresas" },
+    { icon: "🍌", t: "Yogur con fresa, plátano y canela" },
+    { icon: "🥜", t: "Plátano con mantequilla de maní" },
+    { icon: "🍰", t: "Mug cheesecake", d: "Yogur y queso crema ligero" },
+  ];
+  const RULES = [
+    "3 comidas + 1 snack",
+    "Proteína en cada comida",
+    "Mitad del plato verdura",
+    "Porciones moderadas",
+    "Dulce rico 2 veces por semana",
+    "Un mal día no rompe nada, cuenta la semana",
+  ];
+  const NO_ME_GUSTA = ["Lentejas", "Gelatina", "Chocolate", "Pan Bimbo"];
+  const SHOPPING = [
+    ["Proteína", ["Huevos", "Pechuga de pollo", "Res", "Garbanzos", "Yogur griego", "Queso crema ligero"]],
+    ["Verduras y fruta", ["Lechuga", "Tomate", "Pepino", "Cebolla", "Zanahoria", "Zapallo", "Palta", "Plátano", "Manzana", "Mandarina", "Fresas"]],
+    ["Despensa", ["Avena", "Quinua", "Pan de panadería", "Tostadas integrales", "Arroz", "Maní", "Almendras", "Mantequilla de maní", "Galletas de vainilla", "Canela", "Cancha", "Limón"]],
+  ];
+  const SHOP_TOTAL = SHOPPING.reduce((n, [, items]) => n + items.length, 0);
+  const heartSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>';
+
+  // La semana empieza el lunes: la lista de compras y los corazones se guardan por semana
+  function weekKey(d) {
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    x.setDate(x.getDate() - ((x.getDay() + 6) % 7));
+    return dateKey(x);
+  }
+  let diet, week, wkey;
+  function loadDiet() {
+    const s = store.get("cinnamon:diet:" + key) || {};
+    diet = { checks: { ...(s.checks || {}) }, ate: s.ate || "" };
+    wkey = weekKey(today);
+    const w = store.get("cinnamon:week:" + wkey) || {};
+    week = { shop: { ...(w.shop || {}) }, sweets: [!!w.sweets?.[0], !!w.sweets?.[1]] };
+  }
+  const saveDiet = () => store.set("cinnamon:diet:" + key, diet);
+  const saveWeek = () => store.set("cinnamon:week:" + wkey, week);
+
+  // Partes que no cambian: se dibujan una sola vez
+  $("recipes").innerHTML = SWEETS.map(s => `<li><span class="ic" aria-hidden="true">${s.icon}</span><span><b>${s.t}</b>${s.d ? `<span class="d">${s.d}</span>` : ""}</span></li>`).join("");
+  $("rules").innerHTML = RULES.map((r, i) => `<li class="${i === RULES.length - 1 ? "star" : ""}">${r}</li>`).join("");
+  $("nope").innerHTML = NO_ME_GUSTA.map(n => `<span class="chip">${n}</span>`).join("");
+
+  function renderDietChecks() {
+    $("diet-checks").innerHTML = DIET_CHECKS.map(c => `
+      <li class="row ${diet.checks[c.id] ? "is-done" : ""}">
+        <label class="tick" aria-label="Marcar ${c.name}">
+          <input type="checkbox" id="diet-${c.id}" data-id="${c.id}" ${diet.checks[c.id] ? "checked" : ""}>
+          <span class="box">${checkSvg}</span>
+        </label>
+        <span class="text">${c.name}</span>
+        <span class="habit-icon" aria-hidden="true">${c.icon}</span>
+      </li>`).join("");
+    updateDietCount();
+  }
+  function updateDietCount() {
+    $("diet-count").textContent = DIET_CHECKS.filter(c => diet.checks[c.id]).length + "/6";
+  }
+  $("diet-checks").addEventListener("change", e => {
+    diet.checks[e.target.dataset.id] = e.target.checked;
+    e.target.closest(".row").classList.toggle("is-done", e.target.checked);
+    saveDiet(); updateDietCount();
+  });
+
+  function renderMenu() {
+    const d = today.getDay();
+    $("menu-day").textContent = DAY_NAMES[d];
+    $("menu-today").innerHTML = MEALS.map((m, i) => `<div class="meal"><dt>${m}</dt><dd>${MENU[d][i]}</dd></div>`).join("");
+    $("menu-week").innerHTML = WEEK_ORDER.map(wd => `
+      <div class="wk-day ${wd === d ? "today" : ""}">
+        <h3>${DAY_NAMES[wd]}${wd === d ? ' <span class="tag">Hoy</span>' : ""}</h3>
+        <dl>${MEALS.map((m, i) => `<dt>${m}</dt><dd>${MENU[wd][i]}</dd>`).join("")}</dl>
+      </div>`).join("");
+  }
+  $("week-toggle").addEventListener("click", () => {
+    const box = $("menu-week");
+    box.hidden = !box.hidden;
+    $("week-toggle").setAttribute("aria-expanded", String(!box.hidden));
+    $("week-toggle").textContent = box.hidden ? "Ver la semana" : "Ocultar la semana";
+  });
+
+  function renderSweets() {
+    $("hearts").innerHTML = week.sweets.map((on, i) =>
+      `<button type="button" class="heart ${on ? "on" : ""}" data-i="${i}" aria-pressed="${on}" aria-label="Dulce rico ${i + 1} de esta semana">${heartSvg}</button>`).join("");
+    const n = week.sweets.filter(Boolean).length;
+    $("sweets-note").textContent = n === 0 ? "Esta semana tienes 2 dulces ricos ♡"
+      : n === 1 ? "Te queda 1 dulce rico esta semana"
+      : "¡Ya disfrutaste tus 2 de la semana! ✿";
+  }
+  $("hearts").addEventListener("click", e => {
+    const b = e.target.closest(".heart");
+    if (!b) return;
+    const i = +b.dataset.i;
+    week.sweets[i] = !week.sweets[i];
+    saveWeek(); renderSweets();
+    $("hearts").querySelectorAll(".heart")[i].focus();
+  });
+
+  function renderShop() {
+    $("shop").innerHTML = '<div style="display:flex;flex-direction:column;gap:14px">' + SHOPPING.map(([group, items], g) => `
+      <div class="shop-group">
+        <h3>${group}</h3>
+        <div class="pills">${items.map((item, i) => `
+          <label class="pill ${week.shop[item] ? "on" : ""}">
+            <input type="checkbox" id="shop-${g}-${i}" data-item="${item}" ${week.shop[item] ? "checked" : ""}>
+            <span class="mark" aria-hidden="true">✓</span><span class="name">${item}</span>
+          </label>`).join("")}
+        </div>
+      </div>`).join("") + "</div>";
+    updateShopCount();
+  }
+  function updateShopCount() {
+    $("shop-count").textContent = Object.values(week.shop).filter(Boolean).length + "/" + SHOP_TOTAL;
+  }
+  $("shop").addEventListener("change", e => {
+    week.shop[e.target.dataset.item] = e.target.checked;
+    e.target.closest(".pill").classList.toggle("on", e.target.checked);
+    saveWeek(); updateShopCount();
+  });
+  $("shop-reset").addEventListener("click", () => {
+    week.shop = {};
+    saveWeek(); renderShop();
+  });
+
+  let ateTimer;
+  $("ate").addEventListener("input", e => {
+    diet.ate = e.target.value;
+    saveDiet();
+    const s = $("saved-ate");
+    s.classList.add("show");
+    clearTimeout(ateTimer);
+    ateTimer = setTimeout(() => s.classList.remove("show"), 1400);
+  });
+  $("ate").addEventListener("keydown", e => { if (e.key === "Enter") e.target.blur(); });
+
+  function renderDiet() {
+    loadDiet();
+    $("date-diet").textContent = $("date").textContent;
+    renderDietChecks(); renderMenu(); renderSweets(); renderShop();
+    $("ate").value = diet.ate;
+  }
+
+  // ---------- Pestañas ----------
+  const TABS = ["hoy", "dieta"];
+  function showTab(name) {
+    if (!TABS.includes(name)) name = "hoy";
+    TABS.forEach(t => {
+      $("view-" + t).hidden = t !== name;
+      $("tab-" + t).setAttribute("aria-selected", String(t === name));
+    });
+    store.set("cinnamon:tab", name);
+    if (location.hash !== "#" + name) {
+      try { history.replaceState(null, "", "#" + name); } catch (e) {}
+    }
+  }
+  document.querySelector(".tabbar").addEventListener("click", e => {
+    const b = e.target.closest(".tab");
+    if (!b) return;
+    showTab(b.dataset.tab);
+    window.scrollTo(0, 0);
+  });
+  window.addEventListener("hashchange", () => showTab(location.hash.slice(1)));
+
   // ---------- Todo ----------
   function renderAll() {
     renderHeader(); renderClasses(); renderTasks(); renderHabits();
     $("feeling").value = day.feeling;
+    renderDiet();
   }
   renderAll();
+  showTab(location.hash.slice(1) || store.get("cinnamon:tab") || "hoy");
 
   // Si la página queda abierta y cambia el día (o la hora), se actualiza sola
   function tick() {
