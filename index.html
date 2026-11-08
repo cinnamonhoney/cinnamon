@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>cinnamon</title>
+<meta name="description" content="Mi espacio tranquilo para el día de hoy.">
+<meta name="theme-color" content="#ffe4ec">
+<meta name="apple-mobile-web-app-title" content="cinnamon">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+  /* Layout: una sola columna tipo app de celular, tarjetas suaves apiladas, máx. 480px centrada */
+  :root {
+    --bg: #fff3f6;
+    --bg-2: #ffe4ec;
+    --card: #ffffff;
+    --ink: #5a3446;
+    --ink-soft: #9a7083;
+    --pink: #f59ab8;
+    --pink-strong: #e2678f;
+    --pink-wash: #ffe9f0;
+    --line: #f8d3df;
+    --mint: #bfe8d6;
+    --mint-ink: #3f7d64;
+    --shadow: 0 6px 18px rgba(226, 103, 143, .12);
+    --font-title: "Fredoka", "Nunito", ui-rounded, system-ui, sans-serif;
+    --font-text: "Nunito", ui-rounded, system-ui, -apple-system, sans-serif;
+    --r-lg: 26px;
+    --r-md: 18px;
+    --r-sm: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #2a1a22; --bg-2: #3a2430; --card: #382430; --ink: #ffe6ef; --ink-soft: #d3a9ba;
+      --pink: #f08db0; --pink-strong: #ffa3c2; --pink-wash: #4a2c3a; --line: #553545;
+      --mint: #2f5446; --mint-ink: #b5ecd4; --shadow: 0 6px 18px rgba(0,0,0,.25);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #2a1a22; --bg-2: #3a2430; --card: #382430; --ink: #ffe6ef; --ink-soft: #d3a9ba;
+    --pink: #f08db0; --pink-strong: #ffa3c2; --pink-wash: #4a2c3a; --line: #553545;
+    --mint: #2f5446; --mint-ink: #b5ecd4; --shadow: 0 6px 18px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: radial-gradient(120% 60% at 50% 0%, var(--bg-2), var(--bg) 60%) fixed, var(--bg);
+    color: var(--ink);
+    font-family: var(--font-text);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-top: calc(20px + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+    margin: 0;
+    min-height: 100vh;
+  }
+  [hidden] { display: none !important; }
+  .app { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+  /* Encabezado */
+  header { display: flex; flex-direction: column; gap: 2px; padding: 4px 6px 0; }
+  .brand { font-family: var(--font-title); font-weight: 600; font-size: 1rem; color: var(--pink-strong); letter-spacing: .02em; }
+  h1 { font-family: var(--font-title); font-weight: 700; font-size: 2.3rem; line-height: 1.1; margin: 0; text-wrap: balance; }
+  .date { color: var(--ink-soft); font-weight: 700; text-transform: capitalize; }
+
+  /* Mensaje del día */
+  .note {
+    position: relative;
+    background: var(--pink);
+    color: #fff;
+    border-radius: var(--r-lg);
+    padding: 20px 22px 22px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .note::after {
+    content: ""; position: absolute; right: -30px; top: -30px; width: 120px; height: 120px;
+    border-radius: 50%; background: rgba(255,255,255,.18);
+  }
+  .note .label { font-family: var(--font-title); font-weight: 600; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; opacity: .9; }
+  .note p { font-family: var(--font-title); font-weight: 500; font-size: 1.3rem; line-height: 1.35; margin: 6px 0 0; text-wrap: balance; position: relative; z-index: 1; }
+  :root[data-theme="dark"] .note p, :root[data-theme="dark"] .note .label { color: #3a1a28; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .note { color: #3a1a28; } }
+  :root[data-theme="dark"] .note { color: #3a1a28; }
+
+  /* Tarjetas */
+  .card { background: var(--card); border-radius: var(--r-lg); padding: 18px 18px 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px; }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  h2 { font-family: var(--font-title); font-weight: 600; font-size: 1.3rem; margin: 0; }
+  .count { font-weight: 800; font-size: .85rem; color: var(--pink-strong); background: var(--pink-wash); border-radius: 999px; padding: 2px 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* Clases */
+  .classes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .class { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; padding: 10px 12px; border-radius: var(--r-md); background: var(--pink-wash); }
+  .class .time { font-weight: 800; font-size: .9rem; font-variant-numeric: tabular-nums; color: var(--pink-strong); line-height: 1.25; }
+  .class .name { font-weight: 700; min-width: 0; }
+  .class .tag { display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; border-radius: 999px; padding: 1px 8px; margin-top: 2px; }
+  .class.now { background: var(--pink); color: #fff; }
+  .class.now .time { color: #fff; }
+  .class.now .tag { background: #fff; color: var(--pink-strong); }
+  .class.next .tag { background: var(--card); color: var(--pink-strong); }
+  .class.done { opacity: .5; }
+  .class.done .name { text-decoration: line-through; text-decoration-color: var(--pink); }
+  .empty { text-align: center; padding: 14px 8px 6px; color: var(--ink-soft); font-weight: 600; }
+  .empty .face { font-size: 1.6rem; color: var(--pink-strong); display: block; margin-bottom: 4px; }
+
+  /* Casillas */
+  .checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 6px 10px 6px 6px; border-radius: var(--r-md); border: 2px solid var(--line); transition: background .2s, border-color .2s; }
+  .row.is-done { background: var(--pink-wash); border-color: transparent; }
+  .tick { position: relative; flex: none; width: 36px; height: 36px; display: grid; place-items: center; cursor: pointer; }
+  .tick input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .tick .box { width: 28px; height: 28px; border-radius: 50%; border: 2.5px solid var(--pink); background: var(--card); display: grid; place-items: center; transition: transform .15s, background .2s; }
+  .tick .box svg { width: 16px; height: 16px; stroke: #fff; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset .25s ease .05s; }
+  .tick input:checked + .box { background: var(--pink); }
+  .tick input:checked + .box svg { stroke-dashoffset: 0; }
+  .tick input:active + .box { transform: scale(.88); }
+  .tick input:focus-visible + .box { outline: 3px solid var(--pink-strong); outline-offset: 2px; }
+  .row .text { flex: 1; min-width: 0; font-weight: 700; }
+  .row input[type="text"] {
+    flex: 1; min-width: 0; border: 0; background: transparent; color: var(--ink);
+    font: 700 1rem/1.4 var(--font-text); padding: 8px 0; outline: none;
+  }
+  .row input[type="text"]::placeholder { color: var(--ink-soft); font-weight: 600; opacity: .8; }
+  .row.is-done input[type="text"], .row.is-done .text { text-decoration: line-through; text-decoration-color: var(--pink); color: var(--ink-soft); }
+  .row:focus-within { border-color: var(--pink); }
+  .habit-icon { font-size: 1.15rem; flex: none; width: 1.6rem; text-align: center; }
+
+  /* Ánimo */
+  .feel { display: flex; flex-direction: column; gap: 6px; }
+  .feel input {
+    width: 100%; border: 2px solid var(--line); border-radius: var(--r-md); background: var(--pink-wash); color: var(--ink);
+    font: 600 1rem/1.4 var(--font-text); padding: 13px 14px; outline: none; transition: border-color .2s;
+  }
+  .feel input:focus { border-color: var(--pink); }
+  .feel input::placeholder { color: var(--ink-soft); }
+  .saved { font-size: .8rem; font-weight: 700; color: var(--mint-ink); min-height: 1.2em; padding-left: 4px; opacity: 0; transition: opacity .3s; }
+  .saved.show { opacity: 1; }
+
+  .cheer { text-align: center; font-family: var(--font-title); font-weight: 500; color: var(--pink-strong); margin: 0; min-height: 1.4em; }
+  footer { text-align: center; color: var(--ink-soft); font-size: .8rem; font-weight: 600; padding-top: 4px; }
+
+  .pop { animation: pop .35s ease; }
+  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.03); } 100% { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <span class="brand">cinnamon ૮ ˶ᵔ ᵕ ᵔ˶ ა</span>
+    <h1>Hoy</h1>
+    <span class="date" id="date">domingo, 8 de noviembre</span>
+  </header>
+
+  <section class="note" aria-label="Mensaje del día">
+    <span class="label">Mensaje del día</span>
+    <p id="message">Hoy también mereces cosas bonitas.</p>
+  </section>
+
+  <section class="card" aria-labelledby="h-classes">
+    <div class="card-head">
+      <h2 id="h-classes">Mis clases de hoy</h2>
+      <span class="count" id="class-count"></span>
+    </div>
+    <div id="classes"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-tasks">
+    <div class="card-head">
+      <h2 id="h-tasks">Mis 3 de hoy</h2>
+      <span class="count" id="task-count">0/3</span>
+    </div>
+    <ul class="checks" id="tasks"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="h-habits">
+    <div class="card-head">
+      <h2 id="h-habits">Mis hábitos</h2>
+      <span class="count" id="habit-count">0/3</span>
+    </div>
+    <ul class="checks" id="habits"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="h-feel">
+    <h2 id="h-feel">¿Cómo me siento?</h2>
+    <div class="feel">
+      <label for="feeling" class="sr" hidden>¿Cómo me siento hoy?</label>
+      <input type="text" id="feeling" maxlength="140" placeholder="Hoy me siento…" autocomplete="off">
+      <span class="saved" id="saved">Guardado ✓</span>
+    </div>
+  </section>
+
+  <p class="cheer" id="cheer"></p>
+  <footer>Todo se guarda solo en este navegador ♡</footer>
+</div>
+
+<script>
+(() => {
+  // ---------- Datos ----------
+  const SCHEDULE = {
+    2: [ ["Contabilidad", "7:30", "9:15"], ["Comunicación y Literatura", "10:30", "13:15"] ],
+    3: [ ["Matemáticas", "7:30", "9:15"], ["CHO", "10:30", "13:15"], ["Negocios Internacionales", "14:30", "17:15"] ],
+    4: [ ["Marketing", "14:30", "17:15"] ],
+    5: [ ["Matemáticas", "7:30", "9:15"] ],
+    6: [ ["Contabilidad", "7:30", "9:15"] ],
+  };
+  const DAY_NAMES = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+
+  const HABITS = [
+    { id: "aleman", name: "Alemán", icon: "🇩🇪" },
+    { id: "piano", name: "Piano", icon: "🎹" },
+    { id: "cama", name: "En cama a las 11", icon: "🌙" },
+  ];
+
+  const MESSAGES = [
+    "Hoy también mereces cosas bonitas.",
+    "Un pasito pequeño sigue siendo un pasito. Estoy orgullosa de ti.",
+    "Respira hondo. No tienes que hacerlo todo hoy.",
+    "Eres más valiente de lo que crees.",
+    "Tu ritmo está bien. Florecer toma su tiempo.",
+    "Hoy puede ser un buen día. Y si no, mañana lo intentamos otra vez.",
+    "Toma agüita y sonríe un poquito.",
+    "Lo que estás construyendo vale la pena.",
+    "Eres suficiente, tal como eres hoy.",
+    "Cada nota en el piano y cada palabra en alemán cuentan.",
+    "Está bien descansar. Descansar también es avanzar.",
+    "Tu esfuerzo de hoy es un regalo para tu yo del futuro.",
+    "Sé tan amable contigo como lo eres con los demás.",
+    "Hoy brillas un poquito más, aunque no lo notes.",
+    "No tiene que ser perfecto, solo tiene que ser tuyo.",
+    "Mira cuánto has crecido. De verdad.",
+    "Una cosa a la vez. Tú puedes.",
+    "Te mereces un abrazo enorme hoy.",
+    "Las cosas bonitas toman tiempo, como tú.",
+    "Tu calma también es una fortaleza.",
+    "Hoy es un buen día para ser suave contigo.",
+    "Confía en ti. Ya llegaste muy lejos.",
+    "Sonríe: alguien está feliz de que existas.",
+    "Hasta los días grises tienen algo lindo escondido.",
+    "Haz lo mejor que puedas con lo que tienes hoy. Eso basta.",
+    "Eres tu lugar seguro.",
+    "Celebrar lo pequeño también cuenta.",
+    "Tus sueños son importantes. Cuídalos.",
+    "Dormir temprano es quererte bonito.",
+    "Hoy no compitas con nadie, solo disfruta tu camino.",
+    "Eres como la canela: dulce y con carácter.",
+  ];
+
+  const CHEERS = {
+    tasks: "¡Lograste tus 3 de hoy! ૮ ˶ᵔ ᵕ ᵔ˶ ა",
+    habits: "¡Todos tus hábitos listos! Qué orgullo ♡",
+    both: "¡Día completo! Eres increíble ✿",
+  };
+
+  // ---------- Guardado (localStorage con respaldo en memoria) ----------
+  const memory = {};
+  const store = {
+    get(key) {
+      try { const v = localStorage.getItem(key); if (v !== null) return JSON.parse(v); } catch (e) {}
+      return memory[key] ?? null;
+    },
+    set(key, value) {
+      memory[key] = value;
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+    },
+  };
+
+  // ---------- Fechas ----------
+  const pad = n => String(n).padStart(2, "0");
+  const dateKey = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const toMinutes = hm => { const [h, m] = hm.split(":").map(Number); return h * 60 + m; };
+
+  function emptyDay() {
+    return {
+      tasks: [{ text: "", done: false }, { text: "", done: false }, { text: "", done: false }],
+      habits: { aleman: false, piano: false, cama: false },
+      feeling: "",
+    };
+  }
+  function loadDay(key) {
+    const saved = store.get("cinnamon:day:" + key);
+    const base = emptyDay();
+    if (!saved) return base;
+    return {
+      tasks: base.tasks.map((t, i) => ({ ...t, ...(saved.tasks?.[i] || {}) })),
+      habits: { ...base.habits, ...(saved.habits || {}) },
+      feeling: saved.feeling || "",
+    };
+  }
+
+  let today = new Date();
+  let key = dateKey(today);
+  let day = loadDay(key);
+  const save = () => store.set("cinnamon:day:" + key, day);
+
+  const $ = id => document.getElementById(id);
+  const checkSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  // ---------- Encabezado y mensaje ----------
+  function renderHeader() {
+    $("date").textContent = today.toLocaleDateString("es-PE", { weekday: "long", day: "numeric", month: "long" });
+    const dayNumber = Math.floor(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) / 86400000);
+    $("message").textContent = MESSAGES[dayNumber % MESSAGES.length];
+  }
+
+  // ---------- Clases ----------
+  function renderClasses() {
+    const list = SCHEDULE[today.getDay()] || [];
+    const box = $("classes");
+    if (!list.length) {
+      let n = 1, next;
+      while (n <= 7 && !next) { const d = (today.getDay() + n) % 7; if (SCHEDULE[d]) next = d; else n++; }
+      const when = n === 1 ? "mañana" : "el " + DAY_NAMES[next];
+      box.innerHTML = `<div class="empty"><span class="face">( ˘ ³˘)♡</span>Hoy no hay clases, ¡descansa!<br>Tu próxima clase es ${when}: ${SCHEDULE[next][0][0]} a las ${SCHEDULE[next][0][1]}.</div>`;
+      $("class-count").textContent = "libre";
+      return;
+    }
+    const now = new Date();
+    const mins = now.getHours() * 60 + now.getMinutes();
+    let nextMarked = false;
+    box.innerHTML = '<ul class="classes">' + list.map(([name, start, end]) => {
+      let cls = "", tag = "";
+      if (mins >= toMinutes(end)) cls = "done";
+      else if (mins >= toMinutes(start)) { cls = "now"; tag = "Ahora"; }
+      else if (!nextMarked) { cls = "next"; tag = "Siguiente"; nextMarked = true; }
+      if (cls === "now") nextMarked = true;
+      return `<li class="class ${cls}">
+        <span class="time">${start}<br>${end}</span>
+        <span class="name">${name}${tag ? `<br><span class="tag">${tag}</span>` : ""}</span>
+      </li>`;
+    }).join("") + "</ul>";
+    $("class-count").textContent = list.length === 1 ? "1 clase" : list.length + " clases";
+  }
+
+  // ---------- Mis 3 de hoy ----------
+  const PLACEHOLDERS = ["Primera cosita…", "Segunda cosita…", "Tercera cosita…"];
+  function renderTasks() {
+    $("tasks").innerHTML = day.tasks.map((t, i) => `
+      <li class="row ${t.done ? "is-done" : ""}" id="task-row-${i}">
+        <label class="tick" aria-label="Marcar tarea ${i + 1}">
+          <input type="checkbox" id="task-check-${i}" data-i="${i}" ${t.done ? "checked" : ""}>
+          <span class="box">${checkSvg}</span>
+        </label>
+        <input type="text" id="task-text-${i}" data-i="${i}" maxlength="80" placeholder="${PLACEHOLDERS[i]}" value="${esc(t.text)}" aria-label="Tarea ${i + 1}" autocomplete="off" enterkeyhint="done">
+      </li>`).join("");
+    updateCounts();
+  }
+  $("tasks").addEventListener("change", e => {
+    if (e.target.type !== "checkbox") return;
+    const i = +e.target.dataset.i;
+    day.tasks[i].done = e.target.checked;
+    $("task-row-" + i).classList.toggle("is-done", e.target.checked);
+    save(); updateCounts(true);
+  });
+  $("tasks").addEventListener("input", e => {
+    if (e.target.type !== "text") return;
+    day.tasks[+e.target.dataset.i].text = e.target.value;
+    save();
+  });
+  $("tasks").addEventListener("keydown", e => {
+    if (e.key === "Enter" && e.target.type === "text") e.target.blur();
+  });
+
+  // ---------- Hábitos ----------
+  function renderHabits() {
+    $("habits").innerHTML = HABITS.map(h => `
+      <li class="row ${day.habits[h.id] ? "is-done" : ""}" id="habit-row-${h.id}">
+        <label class="tick" aria-label="Marcar ${h.name}">
+          <input type="checkbox" id="habit-${h.id}" data-id="${h.id}" ${day.habits[h.id] ? "checked" : ""}>
+          <span class="box">${checkSvg}</span>
+        </label>
+        <span class="text">${h.name}</span>
+        <span class="habit-icon" aria-hidden="true">${h.icon}</span>
+      </li>`).join("");
+    updateCounts();
+  }
+  $("habits").addEventListener("change", e => {
+    const id = e.target.dataset.id;
+    day.habits[id] = e.target.checked;
+    $("habit-row-" + id).classList.toggle("is-done", e.target.checked);
+    save(); updateCounts(true);
+  });
+
+  // ---------- Ánimo ----------
+  let savedTimer;
+  $("feeling").addEventListener("input", e => {
+    day.feeling = e.target.value;
+    save();
+    const s = $("saved");
+    s.classList.add("show");
+    clearTimeout(savedTimer);
+    savedTimer = setTimeout(() => s.classList.remove("show"), 1400);
+  });
+  $("feeling").addEventListener("keydown", e => { if (e.key === "Enter") e.target.blur(); });
+
+  // ---------- Contadores y ánimos ----------
+  function updateCounts(animate) {
+    const t = day.tasks.filter(x => x.done).length;
+    const h = Object.values(day.habits).filter(Boolean).length;
+    $("task-count").textContent = t + "/3";
+    $("habit-count").textContent = h + "/3";
+    const cheer = t === 3 && h === 3 ? CHEERS.both : t === 3 ? CHEERS.tasks : h === 3 ? CHEERS.habits : "";
+    const el = $("cheer");
+    if (el.textContent !== cheer) {
+      el.textContent = cheer;
+      if (animate && cheer) { el.classList.remove("pop"); void el.offsetWidth; el.classList.add("pop"); }
+    }
+  }
+
+  // ---------- Todo ----------
+  function renderAll() {
+    renderHeader(); renderClasses(); renderTasks(); renderHabits();
+    $("feeling").value = day.feeling;
+  }
+  renderAll();
+
+  // Si la página queda abierta y cambia el día (o la hora), se actualiza sola
+  function tick() {
+    const now = new Date();
+    if (dateKey(now) !== key) {
+      today = now; key = dateKey(now); day = loadDay(key); renderAll();
+    } else {
+      renderClasses();
+    }
+  }
+  setInterval(tick, 60000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(); });
+})();
+</script>
+</body>
+</html>
